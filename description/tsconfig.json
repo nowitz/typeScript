@@ -1,0 +1,16 @@
+//COMMENT skript pro konfiguraci TypeScriptu
+{
+  "compilerOptions": {
+    "target": "es5", //preloz TypeScript na ES5 -> tomu rozumi prohlizec
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true, //zda se maji vytvaret mapovaci soubory -> slouzi pro lepsi debuging
+    "emitDecoratorMetadata": true, //podpora pro dekoraci -> proste musi byt true
+    "experimentalDecorators": true, //podpora pro dekoraci -> proste musi byt true
+    "removeComments": false,
+    "noImplicitAny": true, // zda muzou byt nejaky promenny typu ANY nebo zda musim vzdy presne definovat ty, napr. pomoci interfacu
+    "suppressImplicitAnyIndexErrors": true
+  }
+}
+
+//COMMENT soubor typings.json a soubory *.d.ts jsou vytvoreny pri prikazu "npm install" a slouzi jako pomocny soubory pro kompilaci aplikace -> nesahat na ne

@@ -1,0 +1,43 @@
+{
+    //COMMENT jeden z nejdulezitejsich soubotu, definuje co se ma stat pri prikazu npm install
+    "name": "product-management", //COMMENT informace o aplikaci, autorovi, atd.
+    "version": "1.0.0",
+    "author": "Deborah Kurata",
+    "description": "Package for the Acme Product Management sample application",
+    "scripts": { //COMMENT definovani vlastni prikazu -> npm start, npm tsc, atd...
+        "start": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
+        "tsc": "tsc", //COMMENT kompilace
+        "tsc:w": "tsc -w", //COMMENT online prekompilovani zmen, udrzuje kompilarot online
+        "lint": "tslint ./app/**/*.ts -t verbose",
+        "lite": "lite-server", //COMMENT refresh prohlizece po zmene
+        "typings": "typings", //COMMENT nainstaluje knihnovny definovany v typings.jsob, soubor *.d.ts(proste neco pomocnyho)
+        "postinstall": "typings install", //COMMENT po install zavola i typings, usnadneni toho abychom nemuseli volat zvlast install a typings
+    },
+    "license": "ISC", //COMMENT druh licence
+    "dependencies": { //COMMENT definovani knihoven, ktery se maji nainstalovat a jsou potrebne ke spusteni aplikace
+        "@angular/common": "2.0.0",
+        "@angular/compiler": "2.0.0",
+        "@angular/core": "2.0.0",
+        "@angular/forms": "2.0.0",
+        "@angular/http": "2.0.0",
+        "@angular/platform-browser": "2.0.0",
+        "@angular/platform-browser-dynamic": "2.0.0",
+        "@angular/router": "3.0.0",
+        
+        "core-js": "^2.4.1",
+        "reflect-metadata": "^0.1.3",
+        "rxjs": "5.0.0-beta.12",
+        "systemjs": "0.19.27",
+        "zone.js": "^0.6.23",
+        
+        "bootstrap": "^3.3.6"
+    },
+    "devDependencies": { //COMMENT knihovny, ktery jsou potreba pro vyvoj aplikace
+        "concurrently": "^2.2.0", //COMMENT podpurne knihovny
+        "lite-server": "^2.2.0",
+        "tslint": "^3.7.4",
+        "typescript": "^2.0.2", //COMMENT verze TypeScriptu
+        "typings": "^1.0.4"
+    },
+    "repository": {}
+}
