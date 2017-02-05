@@ -1,0 +1,71 @@
+<div class='panel panel-primary'>
+    <div class='panel-heading'>
+        {{pageTitle}} <!-- COMMENT Expression Language - vyhodnoceni promenny pageTitle, ktera je definovana v product-list.component.ts -->
+    </div>
+
+    <!-- Filter the Products   -->
+    <div class='panel-body'>
+        <div class='row'>
+            <div class='col-md-2'>Filter by:</div>
+            <div class='col-md-4'>
+                <input type='text' [(ngModel)]='listFilter' /> <!-- COMMENT  obousmerny binding promenny listFilter -->
+            </div>
+        </div>
+        <div class='row' *ngIf='listFilter'> <!-- COMMENT  vyhodnoceni promenny -> zobrazit/nezobrazot HTML kod (DOM) -->
+            <div class='col-md-6'>
+                <h3>Filtered by: {{listFilter}} </h3>
+            </div>
+        </div>
+
+        <div class='has-error' *ngIf='errorMessage'>{{errorMessage}}</div>
+
+        <div class='table-responsive'>
+            <table class='table'
+                   *ngIf='products && products.length'>
+                <thead>
+                    <tr>
+                        <th>
+                            <button class='btn btn-primary'
+                                (click)='toggleImage()'> <!-- COMMENT event - zavolani metody pri kliknuti na tlacitko toggleImage() -->
+                                {{showImage ? 'Hide' : 'Show'}} Image <!-- COMMENT  EL s vyhodnocenim IFu -->
+                            </button>
+                        </th>
+                        <th>Product</th>
+                        <th>Code</th>
+                        <th>Available</th>
+                        <th>Price</th>
+                        <th>5 Star Rating</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor='let product of products | productFilter:listFilter'> <!-- COMMENT  foreach s pouzitim vlastni transformace hodnot (v tomhle pripade filtrace hodnot) -->
+                        <td>
+                            <!-- COMMENT [title]='product.productName | uppercase' - binding vstupni hodnoty, z komponenty do HTML a jeji transformace (prevod vsech pismen na mala pismena)
+                                 tento zpusob je lepsi nez pouziti EL title={{product.productName | uppercase}} -->
+                            <img *ngIf='showImage'
+                                 [src]='product.imageUrl'
+                                 [title]='product.productName | uppercase'
+                                 [style.width.px]='imageWidth' 
+                                 [style.margin.px]='imageMargin'>
+                        </td>
+                        <td><a [routerLink]="['/product', product.productId]"> <!-- COMMENT takhle se definuje URL s parametrem (partyboard.cz/product/10) -->
+                            {{product.productName}}
+                            </a>
+                        </td>
+                        <td>{{ product.productCode | lowercase }}</td>
+                        <td>{{ product.releaseDate }}</td>
+                        <td>{{ product.price | currency:'USD':true:'1.2-2' }}</td> <!-- COMMENT  vylepsenej EL o transformaci hodnoty na menu s formaten cisel -->
+                        <td>
+                            <!-- COMMENT jedna se o vlastni vnorene komponenty se vstupnim parametrem [rating]='product.starRating' a vystupnim parametrem (ratingClicked)='onRatingClicked($event)'
+                            po kliknuti na komponentu se na ni zavola metoda onClick(), ktera vraci hodnotu do definovaneho vystupniho parametru ratingClicked,
+                            ktery je nasledne zpracovan metodou onRatingClicked($event) -->
+                            <ai-star [rating]='product.starRating'
+                                    (ratingClicked)='onRatingClicked($event)'>
+                            </ai-star>
+                       </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
